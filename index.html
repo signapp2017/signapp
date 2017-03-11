@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SignApp</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+    <style>
+      body {
+        color: #58585A;
+      }
+      header {
+        background-color: white;
+        height: 80px;
+        padding-top: 10px;
+      }
+      nav {
+        background-color: #74B320;
+        padding: 5px;
+      }
+      .letter {
+        font-family: 'Lato', sans-serif;
+        font-size: 3em;
+        font-weight: 300;
+        c
+      }
+      .hide {
+        display: none;
+      }
+
+    video {
+      margin-top: 30px;
+    }
+
+    button {
+      background-color: #74B320;
+      color: white;
+      width: 90%;
+      margin: 5px auto 5px auto;
+      max-width: 300px;
+    }
+
+    section img {
+      width: 100%;
+      height: auto;
+    }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container text-center">
+        <a href="index.html"><img src="cabecera2-01.png"></a>
+      </div>
+    </header>
+    <nav>
+      <div class="container">
+        <div class="row">
+          <div class="col text-center" data-link="letters">
+            <img src="iconos/abc-01.png">
+          </div>
+          <div class="col text-center" data-link="game">
+            <img src="iconos/juego-01.png">
+          </div>
+          <div class="col text-center" data-link="info">
+            <img src="iconos/question-01.png">
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section id="letters" class="page">
+      <div class="container">
+      </div>
+    </section>
+    <section id="game" class="page">
+      <div class="container text-center">
+        <div>
+          <video width="320" height="240" autoplay muted loop>
+            <source class="mp4" type="video/mp4">
+          </video>
+          <div id="options"></div>
+        </div>
+      </div>
+    </section>
+    <section id="info" class="page">
+      <div class="container text-center">
+        <img src="instrucciones-01.png">
+      </div>
+    </section>
+    <section id="letterVideo" class="page">
+      <div class="container text-center">
+        <div>
+          <video width="320" height="240" autoplay loop>
+            <source class="mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+    <div id="modalcorr" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+          <h1>Muy bien!</h1>
+          Has acertado
+          <button type="button" class="btn rld">Siguiente</button>
+        </div>
+      </div>
+    </div>
+    <div id="modalin" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+          <h1>Oh!</h1>
+          Has fallado
+          <button type="button" class="btn rld">Siguiente</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+      // Navegador
+      function goPage(sec) {
+        var navTo = "section#"+sec;
+        $("section.page").not(navTo).hide();
+        $(navTo).show();
+      }
+
+      $("nav .col").click(function() {
+        var dataLink = $(this).attr("data-link");
+        goPage(dataLink);
+
+        switch(dataLink) {
+          case "game":
+            reloadGame();
+            break;
+        }
+      });
+
+      // Datos
+      var letterWords = {
+              'A': [
+                ["Abrigo", ""],
+                ["Agua", ""],
+                ["Autobus", ""],
+                ["Ayuda", "videos/ayuda.mp4"],
+              ],
+              'B': [
+                ["Bañera", "videos/bano.mp4"],
+                ["Beber", "videos/beber.mp4"],
+                ["Bicho", ""],
+                ["Bombero", ""],
+              ],
+              'C': [
+                ["caca", ""],
+                ["calor", ""],
+                ["cansancio", ""],
+                ["casa", ""],
+                ["coche", ""],
+                ["colegio", ""],
+                ["comer", ""],
+              ],
+              'D': [
+                ["dinero", "videos/dolor.mp4"],
+                ["dolor", "videos/dormir.mp4"],
+                ["dormir", ""],
+              ],
+              'E': [
+                ["enfadado", ""],
+                ["enfermo", ""],
+              ],
+              'F': [
+                ["Fin", "videos/fin.mp4"],
+                ["Flor", ""],
+                ["Frío", ""],
+                ["Fruta", ""],
+                ["Fuego", ""],
+              ],
+              'G': [
+                ["Gorra", ""],
+                ["Gracias", "videos/gracias.mp4"],
+              ],
+              'H': [
+                ["Hambre", ""],
+                ["Húmedo", ""],
+              ],
+              'I': [
+                ["Iglesia", ""],
+                ["Ir", ""],
+              ],
+              'J': [
+                ["jugar", ""],
+              ],
+              'K': [
+                ["algo", ""],
+              ],
+              'L': [
+                ["Llorar", ""],
+                ["Lluvia", ""],
+              ],
+              'M': [
+                ["Mama", ""],
+                ["Manta", ""],
+                ["Más", "videos/mas.mp4"],
+                ["Médico", ""],
+                ["Mesa", ""],
+                ["Miedo", "videos/miedo.mp4"],
+                ["Música", ""],
+              ],
+              'N': [
+                ["No", "videos/no.mp4"],
+              ],
+              'O': [
+                ["Ordenador", ""],
+                ["Osito", ""],
+              ],
+              'P': [
+                ["pañal", ""],
+                ["papa", ""],
+                ["peligro", ""],
+                ["perro", ""],
+                ["pis", ""],
+                ["Policía", ""],
+                ["Por favor", "videos/por_favor.mp4"],
+              ],
+              'Q': [
+                ["algo", ""],
+              ],
+              'R': [
+                ["Romper", ""],
+                ["Sopa", ""],
+              ],
+              'S': [
+                ["Salir", ""],
+                ["Sentar", ""],
+                ["Si", "videos/si.mp4"],
+                ["Signar", ""],
+                ["Silla", ""],
+                ["Sol", ""],
+              ],
+              'T': [
+                ["Te quiero", "videos/te_quiero.mp4"],
+                ["teléfono", ""],
+                ["Televisión", ""],
+                ["triste", ""],
+              ],
+              'U': [
+                ["algo", ""],
+              ],
+              'V': [
+                ["verdura", ""],
+                ["viento", ""],
+              ],
+              'W': [
+                ["WC", ""],
+              ],
+              'X': [
+                ["algo", ""],
+              ],
+              'Y': [
+                ["algo", ""],
+              ],
+              'Z': [
+                ["zapatos", ""],
+              ],
+            };
+
+            var gameItems = [
+                  ["videos/ayuda.mp4", [["Ayuda", true], ["Comida", false], ["Salir", false]]],
+                  ["videos/bano.mp4", [["Baño", true], ["Cocina", false], ["Mesa", false]]],
+                  ["videos/beber.mp4", [["Beber", true], ["Hambre", false], ["Mama", false]]],
+                ];
+      // Letras
+      function loadLetters() {
+        var content = "";
+        for(var letter in letterWords) {
+          content += "<div class=\"letter\">"+letter+"</div>";
+          content += "<div class=\"row\">";
+          for(var i=0; i<letterWords[letter].length; i++) {
+            content += "<div class=\"col-3 word\" data-link=\""+letterWords[letter][i][1]+"\">"+letterWords[letter][i][0]+"</div>";
+          }
+          content += "</div>";
+        }
+        $("section#letters .container").html(content);
+        $(".word").click(function() {
+          showVideo($(this).attr("data-link"));
+        });
+      }
+
+      // Juego
+      function reloadGame() {
+        var question = gameItems[Math.floor(Math.random()*gameItems.length)];
+
+        $("#game .mp4").attr("src", question[0]);
+        $("#game .mp4").parent()[0].load();
+        var options = question[1];
+
+        options.sort(function(a, b) {return 0.5-Math.random()});
+
+        $("#options").empty();
+        for(var i=0; i<options.length; i++) {
+          if(options[i][1]) {
+            $("#options").append("<div><button type=\"button\" class=\"btn corr\">"+options[i][0]+"</button></div>");
+          } else {
+            $("#options").append("<div><button type=\"button\" class=\"btn inc\">"+options[i][0]+"</button></div>");
+          }
+        }
+
+        $("button.corr").click(function() {
+          $("#modalcorr").modal('show');
+        });
+
+        $(".inc").click(function() {
+          $("#modalin").modal('show');
+        });
+
+        $(".rld").click(function() {
+          $(this).parents(".modal").modal('toggle');
+          reloadGame();
+        });
+      }
+
+      // Mostrar video
+      function showVideo(video) {
+        $("section#letterVideo .mp4").attr("src", video);
+        $("section#letterVideo .mp4").parent()[0].load();
+
+        goPage("letterVideo");
+      }
+
+      // Pagina cargada
+      $(function() {
+        loadLetters();
+        $("div[data-link=\"letters\"]").trigger("click");
+      });
+
+    </script>
+  </body>
+</html>
